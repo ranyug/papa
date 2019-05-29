@@ -1,0 +1,50 @@
+pipeline
+{
+agent any
+[A[C[C[C[C[C[A[C[A[C[C[C[C[C[C[C[C[C[Cpipeline
+ {
+    agent any
+
+    stages 
+{
+
+ stage ('clone'){
+		
+		steps {
+		git url: 'Your Git Hub URL'
+		
+		}
+		}
+      
+        stage ('Compile Stage') 
+{
+
+            steps
+ {
+               
+                    sh 'mvn -f pom.xml clean install'
+                
+            }
+        }
+
+        stage ('Testing Stage')
+ {
+
+            steps
+ {
+                
+                    sh 'mvn -f pom.xml test'
+                }
+            
+        }
+        stage('Deploy to Tomcat')
+{
+        steps
+ {
+        sh 'cp -R /root/.jenkins/workspace/a1/target* /opt/apache-tomcat-8.5.3/webapps/'
+        }
+        }
+
+
+        
+    }
